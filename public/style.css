@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic&display=swap');
+
+:root {
+    --green:  #198754;
+    --forest: #164e36;
+    --offwhite: #FCF7EA;
+    --yellow: #f6e6bd;
+}
+
+*, *:before, *:after {
+	box-sizing: border-box;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+}
+
+
+/* This is for nav bar*/
+
+ .navbar{
+	background-color: var(--green);
+	margin-top: -8px;
+	padding-bottom: 0px;
+    color: white;
+}
+
+.navbar-custom  {
+	background-color: var(--green);
+ }
+
+.navbar-custom span {
+    font-size: 2rem;
+}
+
+.navbar sup {
+    margin-right: 1rem;
+}
+
+
+
+.navbar-custom .navbar-text {
+	color: var(--white);
+}
+
+.push-nav {
+	margin-left: auto;
+	gap: 20px;
+	
+}
+
+.push-nav > a:hover, .push-nav > button:hover{
+    color:black;
+}
+
+
+/* This is for leaf background images*/
+
+.journal{
+	position: absolute;
+    pointer-events: none;
+    opacity: 0.2;
+
+}
+
+
+.float-leaf-left{
+	left:1;
+    z-index: 0;
+}
+
+.float-leaf-right{
+	right:0;
+    z-index: 0;
+}
+
+/* This is for main*/
+
+main{
+	height: 100vh;
+	background-color: var(--offwhite) ;
+}
+
+.mainImg {
+    width: 100%;
+    height: auto;
+    background-color: var(--offwhite);
+}
+
+
+.mt-3 {
+    margin: 5rem !important;
+  }
+
+.container{
+	max-width: 100%;
+}
+
+.inputFieldcontainer{
+    position: relative;
+}
+
+.inputField {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 2px solid var(--green);
+    border-radius: 0px;
+    padding: max(0.5rem, 1.35vh) 0.25rem;
+    transition: all .4s;
+}
+
+.inputField:focus, .activeField {
+    background-color: var(--offwhite);
+    border: 2px solid var(--green);
+    border-radius: 4px;
+    outline: none;
+}
+
+.placeHolder {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 10px;
+    pointer-events: none;
+    transition: all .5s;
+
+}
+
+.inputField:focus + span, .activeSpan{
+    transform: translateX(4px) translateY(-9px);
+    padding: 0 6px;
+    color: var(--green);
+    background-color: var(--forest);
+    color: var(--offwhite);
+    font-size: 0.85rem;
+    border-radius: 4px;
+}
+
+.error {
+    font-size: 0.8rem;
+    color: rgb(253, 61, 61); 
+    margin: 0px;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.separator span{
+    background: var(--white); 
+    padding: 0 2rem;
+}
+
+.separator .line{
+    flex: 1;
+    height: 3px;
+    background-color: var(--green);
+}
+
+.log-in-buttons{
+	margin: 1rem;
+	
+}
+
+.log-in-buttons .btn{
+	text-align: center;
+	vertical-align: middle;
+	margin: 1rem;
+
+}
+
+.btn img {
+	margin-bottom: 0px;
+	margin-right: 8px;
+}
+
+
+
+.account-creation {
+	margin: 1rem;
+	width: 90%;
+}
+
+.account-creation a {
+	text-decoration: none;
+	color:  var(--green);
+
+}
+
+.btn:hover {
+	background: transparent;
+    color: var(--forest);
+}
+
+/* This is for footer*/
+footer{
+	background-color: var(--offwhite);
+    height: 10vh;
+}
+
+.border {
+    border: black solid 1px;
+}
