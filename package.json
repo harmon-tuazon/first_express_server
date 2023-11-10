@@ -1,12 +1,12 @@
 {
   "dependencies": {
     "express": "^4.18.2",
+    "mongoose": "^8.0.0",
     "node": "^21.1.0"
   },
   "name": "nodejs-101",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
