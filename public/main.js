@@ -76,7 +76,7 @@ function submitValidation() {
 
 
 
-form.addEventListener('submit', (e) => e.preventDefault());
+/*form.addEventListener('submit', (e) => e.preventDefault());*/
 password.addEventListener('input', passwordValidation);
 confirmPW.addEventListener('input', confirmPasswordvalidation);
 email.addEventListener('input', emailValidation);

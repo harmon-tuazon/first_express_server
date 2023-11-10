@@ -10,18 +10,21 @@ mongoose.connect(dbURI)
     .then((result) => { app.listen(3000, () => {console.log('listening to server & connected to db')})})
     .catch((err) => {console.error(err)})
 
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 
-app.get('/users', (req, res) => {
-    const newUser = new User ({
-        name: "Harmon Tuazon",
-        email: "iamthedevt@fakemail.com",
-        password: "test12341234"
-    })
+app.post('/users', (req, res) => {
+    const newUser = new User(req.body)
 
     newUser.save()
+    .then((result) => {res.redirect('/users')})
+    .catch((err) => {console.error(err)}) 
+})
+
+
+app.get('/users', (req, res) => {
+    User.find()
         .then((result) => {res.send(result)})
         .catch((err) => {console.error(err)})
 })

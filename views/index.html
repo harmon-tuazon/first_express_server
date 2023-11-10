@@ -43,45 +43,46 @@
     <div class="container-fluid col-sm-6">
         <img class="float-leaf-left journal" src="assets/float leaf left.png">
         <img class="float-leaf-right journal" src="assets/float leaf right.png">
-        <form action="POST" id="form">
+
+        <form action="/users" method="post" id="form">
             <div class="text-center mt-3">
                 <h1>Get Started</h1>
                 <img src="assets/leaf.png">
             </div>
             <div class="d-flex justify-content-evenly">
                 <div class="mb-3 col-4 inputFieldcontainer">
-                    <input type="text" class="form-control inputField shadow-none" id="firstName">
+                    <input type="text" class="form-control inputField shadow-none" id="firstName" name="firstname">
                     <span class="placeHolder">First Name</span>
                     <span class="error"></span>
                 </div>
                 <div class="mb-3 col-4  inputFieldcontainer">
-                    <input type="text" class="form-control inputField shadow-none" id="lastName">
+                    <input type="text" class="form-control inputField shadow-none" id="lastName" name="lastname">
                     <span class="placeHolder">Last Name</span>
                     <span class="error"></span>
                 </div>
             </div>
             <div class="d-flex justify-content-evenly">
                 <div class="mb-3 col-4  inputFieldcontainer">
-                    <input type="email" class="form-control inputField shadow-none" id="email">
+                    <input type="email" class="form-control inputField shadow-none" id="email" name="email">
                     <span class="placeHolder">Email</span>
                     <span class="error"></span>
                 </div>
                 <div class="mb-3 col-4  inputFieldcontainer">
-                    <input type="tel" class="form-control inputField shadow-none" id="number">
+                    <input type="tel" class="form-control inputField shadow-none" id="number" name="phonenumber">
                     <span class="placeHolder col">Phone Number</span>
                     <span class="error"></span>
                 </div>
             </div>
             <div class="d-flex justify-content-evenly">
                 <div class="mb-3 col-4  inputFieldcontainer">
-                    <input type="password" class="form-control inputField shadow-none" id="password">
+                    <input type="password" class="form-control inputField shadow-none" id="password" name="password">
                     <span class ="placeHolder">Password</span>
                     <span class="error"></span>
                 </div>
                 <div class="mb-3 col-4  inputFieldcontainer">
-                <input type="password" class="form-control inputField shadow-none" id="confirmPW">
-                <span class ="placeHolder">Confirm Password</span>
-                <span class="error"></span>
+                  <input type="password" class="form-control inputField shadow-none" id="confirmPW" name="confirmpassword">
+                  <span class ="placeHolder">Confirm Password</span>
+                  <span class="error"></span>
                 </div>
             </div>
             <div class="d-flex mx-auto justify-content-center mt-2">
