@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Blog</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="../style.css">
+</head> 
+<body>
+
+<!--This is for nav bar-->
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary position-sticky">
+  <div class="container-fluid navbar-custom">
+    <span>Hello World</span> 
+    <sup>©</sup>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav navbar-text">
+        <a class="nav-link navbar-text" aria-current="page" href="http://localhost:3000/">Home</a>
+        <a class="nav-link navbar-text" href="http://localhost:3000/about">About Us</a>
+        <a class="nav-link navbar-text" href="http://localhost:3000/users">Users</a>
+        <a class="nav-link navbar-text" href="http://localhost:3000/blogs">Blogs</a>
+      </div>
+      <div class="d-flex push-nav">
+            <a class="nav-link navbar-text" href="http://localhost:3000/">Create Account</a>
+            <button class="btn btn-outline-light navbar-text" type="submit">Log-in</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<main class="row d-flex container">
+    <div class="container-fluid col-12">
+        <img class="float-leaf-left journal" src="../assets/float leaf left.png">
+        <img class="float-leaf-right journal" src="../assets/float leaf right.png">
+
+        <form action="/blogs" method="post" id="form">
+            <div class="text-center mt-3">
+                <h1>Create a Blog</h1>
+                <img src="../assets/leaf.png">
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-evenly">
+                <div class="mb-3 inputFieldcontainer col-5">
+                    <input type="text" class="form-control inputField shadow-none" id="title" name="title">
+                    <span class="placeHolder">Title</span>
+                </div>
+                <div class="mb-3 inputFieldcontainer col-5">
+                    <input type="text" class="form-control inputField shadow-none" id="snippet" name="snippet">
+                    <span class="placeHolder">Snippet</span>
+                </div>
+                <div class="mb-3 inputFieldcontainer col-5">
+                    <input type="text" class="form-control inputField shadow-none" id="content" name="content">
+                    <span class="placeHolder">Content</span>
+                </div>
+            </div>
+            
+            <div class="d-flex mx-auto justify-content-center mt-2">
+                <button type="submit" id="createBlog" class="btn btn-success btn-lg mt-2">Submit</button>
+            </div>
+          </form>
+
+<script src="./main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+</body>
+</html>

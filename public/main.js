@@ -7,7 +7,7 @@ const email = document.querySelector('#email');
 const number = document.querySelector('#number');
 const password = document.querySelector('#password');
 const confirmPW = document.querySelector('#confirmPW');
-const createAcctbtn = document.querySelector('#createAcct')
+const createAcctbtn = document.querySelector('#createAcct');
 
 
 function onFocus() {
@@ -76,7 +76,6 @@ function submitValidation() {
 
 
 
-/*form.addEventListener('submit', (e) => e.preventDefault());*/
 password.addEventListener('input', passwordValidation);
 confirmPW.addEventListener('input', confirmPasswordvalidation);
 email.addEventListener('input', emailValidation);

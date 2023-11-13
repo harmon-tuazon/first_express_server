@@ -16,7 +16,8 @@ const userSchema = new Schema({
     },
     phonenumber: {
         type: String,
-        required: true
+        required: true,
+        minLength: 12
     },
     password: {
         type: String,

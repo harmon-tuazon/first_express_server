@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('./models/users')
+const User = require('./models/users');
+const Blog = require('./models/blogs');
 
 const app = express();
 
@@ -14,6 +15,18 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 
+
+// home & about
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/views/index.html')
+})
+
+app.get('/about', (req, res) => {
+    res.sendFile(__dirname + '/views/about.html')
+})
+
+
+// for users
 app.post('/users', (req, res) => {
     const newUser = new User(req.body)
 
@@ -29,14 +42,26 @@ app.get('/users', (req, res) => {
         .catch((err) => {console.error(err)})
 })
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/index.html')
+
+// for blogs
+app.get('/blogs', (req, res) => {
+    res.sendFile(__dirname + '/views/blogs.html')
 })
 
-app.get('/about', (req, res) => {
-    res.sendFile(__dirname + '/views/about.html')
+app.get('/blogs/create-blog', (req, res) => {
+    res.sendFile(__dirname + '/views/createBlog.html')
 })
 
+app.post('/blogs', (req, res) => {
+    const newBlog = new Blog(req.body)
+
+    newBlog.save()
+    .then((result) => {res.redirect('/blogs')})
+    .catch((err) => {console.error(err)}) 
+})
+
+
+// 404 Error Handling
 app.use((req, res) => {
     res.sendFile(__dirname + '/views/404.html')
 })
