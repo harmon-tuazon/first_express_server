@@ -5,6 +5,8 @@ const Blog = require('./models/blogs');
 
 const app = express();
 
+app.set('view engine', 'ejs')
+
 const dbURI = "mongodb+srv://testUser1:zTm{2023}@nodetutorial.acvyz82.mongodb.net/nodeTutorial?retryWrites=true&w=majority"
 
 mongoose.connect(dbURI)
@@ -18,15 +20,22 @@ app.use(express.static(__dirname + '/public'));
 
 // home & about
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/index.html')
+    res.render('index')
 })
 
 app.get('/about', (req, res) => {
-    res.sendFile(__dirname + '/views/about.html')
+    res.render('about')
 })
 
 
 // for users
+
+app.get('/users', (req, res) => {
+    User.find()
+        .then((result) => {res.send(result)})
+        .catch((err) => {console.error(err)})
+})
+
 app.post('/users', (req, res) => {
     const newUser = new User(req.body)
 
@@ -35,21 +44,15 @@ app.post('/users', (req, res) => {
     .catch((err) => {console.error(err)}) 
 })
 
-
-app.get('/users', (req, res) => {
-    User.find()
-        .then((result) => {res.send(result)})
-        .catch((err) => {console.error(err)})
-})
-
-
 // for blogs
 app.get('/blogs', (req, res) => {
-    res.sendFile(__dirname + '/views/blogs.html')
+    Blog.find()
+    .then((result) => {res.render('blogs', { blogs: result })})
+    .catch((err) => {console.error(err)})
 })
 
 app.get('/blogs/create-blog', (req, res) => {
-    res.sendFile(__dirname + '/views/createBlog.html')
+    res.render('createBlog')
 })
 
 app.post('/blogs', (req, res) => {
@@ -63,6 +66,6 @@ app.post('/blogs', (req, res) => {
 
 // 404 Error Handling
 app.use((req, res) => {
-    res.sendFile(__dirname + '/views/404.html')
+    res.render('404')
 })
 
