@@ -17,7 +17,6 @@ const userSchema = new Schema({
     phonenumber: {
         type: String,
         required: true,
-        minLength: 12
     },
     password: {
         type: String,
@@ -25,7 +24,7 @@ const userSchema = new Schema({
     },
     confirmpassword: {
         type: String,
-        required: true
+        required: false
     }
     }, {timestamps: true})
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('./models/users');
-const Blog = require('./models/blogs');
+const blogRouter = require('./routes/blogRoutes.js')
+const userRouter = require('./routes/userRoutes.js')
 
 const app = express();
 
@@ -29,39 +29,10 @@ app.get('/about', (req, res) => {
 
 
 // for users
-
-app.get('/users', (req, res) => {
-    User.find()
-        .then((result) => {res.send(result)})
-        .catch((err) => {console.error(err)})
-})
-
-app.post('/users', (req, res) => {
-    const newUser = new User(req.body)
-
-    newUser.save()
-    .then((result) => {res.redirect('/users')})
-    .catch((err) => {console.error(err)}) 
-})
+app.use('/users', userRouter)
 
 // for blogs
-app.get('/blogs', (req, res) => {
-    Blog.find()
-    .then((result) => {res.render('blogs', { blogs: result })})
-    .catch((err) => {console.error(err)})
-})
-
-app.get('/blogs/create-blog', (req, res) => {
-    res.render('createBlog')
-})
-
-app.post('/blogs', (req, res) => {
-    const newBlog = new Blog(req.body)
-
-    newBlog.save()
-    .then((result) => {res.redirect('/blogs')})
-    .catch((err) => {console.error(err)}) 
-})
+app.use('/blogs', blogRouter)
 
 
 // 404 Error Handling
