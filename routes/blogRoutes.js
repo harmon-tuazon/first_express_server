@@ -1,5 +1,5 @@
 const express = require('express');
-const { blogIndex, postCreateBlog, getCreateBlog } = require('../controllers/blogController.js')
+const { blogIndex, getBlogById, postCreateBlog, getCreateBlog, deleteBlog } = require('../controllers/blogController.js')
 
 const router = express.Router();
 
@@ -9,6 +9,9 @@ router.post('/', postCreateBlog)
 
 router.get('/create-blog', getCreateBlog)
 
+router.get('/:id', getBlogById)
+
+router.delete('/:id', deleteBlog)
 
 
 
