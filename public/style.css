@@ -113,6 +113,10 @@ main{
     outline: none;
 }
 
+#content {
+    height: 10rem;
+}
+
 .placeHolder {
     position: absolute;
     left: 0;
