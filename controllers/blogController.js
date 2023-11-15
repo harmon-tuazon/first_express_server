@@ -32,7 +32,7 @@ const getBlogById = (req, res) => {
 const deleteBlog = (req, res) => {
     const id = req.params.id
    
-    Blog.findById(id)
+    Blog.findByIdAndDelete(id)
     .then(result => {
         res.json({ redirect: '/blogs' });
       })

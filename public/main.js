@@ -9,7 +9,6 @@ const password = document.querySelector('#password');
 const confirmPW = document.querySelector('#confirmPW');
 const createAcctbtn = document.querySelector('#createAcct');
 
-
 function onFocus() {
     if(this.value !== "") {
       this.classList.add('activeField');
@@ -75,11 +74,9 @@ function submitValidation() {
 }};
 
 
-
 password.addEventListener('input', passwordValidation);
 confirmPW.addEventListener('input', confirmPasswordvalidation);
 email.addEventListener('input', emailValidation);
 createAcctbtn.addEventListener('click', submitValidation);
 errors.forEach(error => error.appendChild(document.createTextNode("")));
 inputFields.forEach(inputField => inputField.addEventListener('input', onFocus));
-
