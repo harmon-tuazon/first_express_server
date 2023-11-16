@@ -28,7 +28,6 @@ const getBlogById = (req, res) => {
 }
 
 
-
 const deleteBlog = (req, res) => {
     const id = req.params.id
    
@@ -41,10 +40,35 @@ const deleteBlog = (req, res) => {
       });
 }
 
+const getUpdateBlog = (req, res) => {
+    const id = req.params.id
+   
+    Blog.findById(id)
+    .then((result) => {res.render('updateBlog', { blog: result })}) 
+    .catch((err) => {console.error(err)})
+}
+
+const postUpdateBlog = (req, res) => {
+    const id = req.params.id
+    const replace = req.body
+
+    console.log(id, replace)
+   
+    Blog.findByIdAndUpdate(id, replace, { new: true })
+    .then(result => {
+        res.json({ redirect: `/blogs/${id}` });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+}
+
 module.exports = {
     blogIndex,
     postCreateBlog,
     getCreateBlog,
     getBlogById,
-    deleteBlog
+    deleteBlog,
+    getUpdateBlog,
+    postUpdateBlog
 }
