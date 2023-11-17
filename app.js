@@ -1,5 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require("path");
+const session = require("express-session");
+const LocalStrategy = require("passport-local").Strategy;
+const User = require('./models/users');
+const passport = require("passport");
 const blogRouter = require('./routes/blogRoutes.js')
 const userRouter = require('./routes/userRoutes.js')
 
@@ -13,20 +18,57 @@ mongoose.connect(dbURI)
     .then((result) => { app.listen(3000, () => {console.log('listening to server & connected to db')})})
     .catch((err) => {console.error(err)})
 
-app.use(express.urlencoded({extended: true}));
+    passport.use(
+        new LocalStrategy(async (username, password, done) => {
+            try {
+                const user = await User.findOne({ username: username });
+    
+                if (!user) {
+                  return done(null, false, { message: "Incorrect username" });
+                };
+                if (user.password !== password) {
+                  return done(null, false, { message: "Incorrect password" });
+                };
+    
+                return done(null, user);
+              } 
+                catch(err) {
+                    return done(err);
+              };
+            })
+          );
+    
+    passport.serializeUser((user, done) => {
+            done(null, user._id);
+          });
+          
+    passport.deserializeUser(async (id, done) => {
+            try {
+              const user = await User.findById(id);
+              done(null, user);
+              
+            } catch(err) {
+                done(err);
+            };
+          });
+    
+
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }))
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 
 
 // home & about
 app.get('/', (req, res) => {
-    res.render('index')
+    res.render('index', { title: "Home Page", user: req.user})
 })
 
 app.get('/about', (req, res) => {
-    res.render('about')
+    res.render('about', { title: "About Us" })
 })
-
 
 // for users
 app.use('/users', userRouter)
@@ -37,6 +79,6 @@ app.use('/blogs', blogRouter)
 
 // 404 Error Handling
 app.use((req, res) => {
-    res.render('404')
+    res.render('404', { title: "Could Not Find Page" })
 })
 

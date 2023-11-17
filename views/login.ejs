@@ -1,0 +1,64 @@
+<%- include('./partials/head.ejs') %>
+
+<body>
+
+<!--This is for nav bar-->
+
+<%- include('./partials/nav.ejs') %>
+
+<main class="row d-flex container m-0">
+    <div class="col-sm-6">
+        <img src="../assets/mainImg.png"  class="img-fluid">
+    </div>
+    <div class="container-fluid col-sm-6">
+        <img class="float-leaf-left journal" src="../assets/float leaf left.png">
+        <img class="float-leaf-right journal" src="../assets/float leaf right.png">
+
+        <% if (user) {%>
+            <h1>WELCOME BACK <%= user.firstName %></h1>
+            <a href="/users/log-out">Log out</a>
+
+        <% } else { %>
+
+            <form action="/users/login" method="post" id="form">
+                <div class="text-center mt-3">
+                    <h1>Log in</h1>
+                    <img src="../assets/leaf.png">
+                </div>
+        
+                <div class="d-flex flex-column justify-content-evenly align-items-center">
+                    <div class="mb-3 col-6  inputFieldcontainer">
+                        <input type="email" class="form-control inputField shadow-none activeField" id="username" name="username">
+                        <span class="placeHolder activeSpan">Email</span>
+                    </div>
+                    <div class="mb-3 col-6  inputFieldcontainer">
+                        <input type="password" class="form-control inputField shadow-none activeField" id="password" name="password">
+                        <span class ="placeHolder activeSpan">Password</span>
+                    </div>
+                </div>
+
+                <div class="d-flex mx-auto justify-content-center mt-2">
+                    <button type="submit" id="login" class="btn btn-success btn-lg mt-2">Log In</button>
+                </div>
+            </form> 
+
+            <div class="separator text-center">
+                <div class="line"></div>
+                <span>or</span>
+                <div class="line"></div>
+            </div>
+            
+            <div class="d-flex log-in-buttons justify-content-center">
+                <button type="button" class="btn btn-success btn-md col-3" ><img src="../assets/facebook.png">Via Facebook</button>
+                <button type="button" class="btn btn-success btn-md col-3" ><img src="../assets/google.png">Via Google</button>
+            </div>
+
+            <%}%>
+    </div>
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -2,12 +2,12 @@ const Blog = require('../models/blogs');
 
 const blogIndex = (req, res) => {
     Blog.find()
-    .then((result) => {res.render('blogs', { blogs: result })})
+    .then((result) => {res.render('blogs', { blogs: result, title: "All Blogs" })})
     .catch((err) => {console.error(err)})
 }
 
 const getCreateBlog = (req, res) => {
-    res.render('createBlog')
+    res.render('createBlog', { title: "Create New Blog" })
 
 }
 
@@ -23,7 +23,7 @@ const getBlogById = (req, res) => {
     const id = req.params.id
    
     Blog.findById(id)
-    .then((result) => {res.render('blogDetails', { blog: result })}) 
+    .then((result) => {res.render('blogDetails', { blog: result, title: "Blog Details" })}) 
     .catch((err) => {console.error(err)})
 }
 
@@ -44,7 +44,7 @@ const getUpdateBlog = (req, res) => {
     const id = req.params.id
    
     Blog.findById(id)
-    .then((result) => {res.render('updateBlog', { blog: result })}) 
+    .then((result) => {res.render('updateBlog', { blog: result, title: "Update Blog" })}) 
     .catch((err) => {console.error(err)})
 }
 

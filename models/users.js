@@ -10,13 +10,13 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    email: {
+    username: {
         type: String,
         required: true
     },
     phonenumber: {
         type: String,
-        required: true,
+        required: false,
     },
     password: {
         type: String,

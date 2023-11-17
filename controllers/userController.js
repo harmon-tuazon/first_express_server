@@ -14,7 +14,21 @@ const getUsers = (req, res) => {
         .catch((err) => {console.error(err)})
 }
 
+const getAuthUser = (req, res) => {
+   res.render('login', { title: "Log in", user: req.user})
+}
+
+const getLogOut = (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect("/");
+        });
+    }
 module.exports = {
    postCreateUser,
-   getUsers
+   getUsers,
+   getAuthUser,
+   getLogOut
 }
