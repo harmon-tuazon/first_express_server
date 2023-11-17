@@ -51,16 +51,10 @@ const getUpdateBlog = (req, res) => {
 const postUpdateBlog = (req, res) => {
     const id = req.params.id
     const replace = req.body
-
-    console.log(id, replace)
    
     Blog.findByIdAndUpdate(id, replace, { new: true })
-    .then(result => {
-        res.json({ redirect: `/blogs/${id}` });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    .then(result => {res.redirect(`/blogs/${id}`) })
+    .catch(err => {console.log(err);});
 }
 
 module.exports = {

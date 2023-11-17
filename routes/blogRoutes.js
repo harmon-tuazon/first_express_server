@@ -17,7 +17,7 @@ router.get('/create-blog', getCreateBlog)
 
 router.get('/:id/update-blog',getUpdateBlog)
 
-router.put('/:id/update-blog', postUpdateBlog)
+router.post('/:id', postUpdateBlog)
 
 router.get('/:id', getBlogById)
 
