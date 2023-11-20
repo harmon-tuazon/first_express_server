@@ -2,8 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require("path");
 const session = require("express-session");
-const LocalStrategy = require("passport-local").Strategy;
-const User = require('./models/users');
 const passport = require("passport");
 const blogRouter = require('./routes/blogRoutes.js')
 const userRouter = require('./routes/userRoutes.js')
@@ -18,39 +16,6 @@ mongoose.connect(dbURI)
     .then((result) => { app.listen(3000, () => {console.log('listening to server & connected to db')})})
     .catch((err) => {console.error(err)})
 
-    passport.use(
-        new LocalStrategy(async (username, password, done) => {
-            try {
-                const user = await User.findOne({ username: username });
-    
-                if (!user) {
-                  return done(null, false, { message: "Incorrect username" });
-                };
-                if (user.password !== password) {
-                  return done(null, false, { message: "Incorrect password" });
-                };
-    
-                return done(null, user);
-              } 
-                catch(err) {
-                    return done(err);
-              };
-            })
-          );
-    
-    passport.serializeUser((user, done) => {
-            done(null, user._id);
-          });
-          
-    passport.deserializeUser(async (id, done) => {
-            try {
-              const user = await User.findById(id);
-              done(null, user);
-              
-            } catch(err) {
-                done(err);
-            };
-          });
     
 
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }))

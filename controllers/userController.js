@@ -1,4 +1,6 @@
 const User = require('../models/users');
+const LocalStrategy = require("passport-local").Strategy;
+const passport = require("passport");
 
 const postCreateUser = (req, res) => {
     const newUser = new User(req.body)
@@ -26,6 +28,38 @@ const getLogOut = (req, res) => {
         res.redirect("/");
         });
     }
+
+passport.use(
+    new LocalStrategy(async (username, password, cb) => {
+          try {
+              const user = await User.findOne({ username: username });
+      
+          if (!user) {
+              return cb(null, false, { message: "Incorrect username" });
+          };
+          if (user.password !== password) {
+               return cb(null, false, { message: "Incorrect password" });
+          };
+      
+          return cb(null, user);
+          } catch(err) {
+              return cb(err);
+          }})
+  );
+      
+passport.serializeUser((user, cb) => {
+      cb(null, user._id);
+  });
+            
+passport.deserializeUser(async (id, cb) => {
+      try {
+          const user = await User.findById(id);
+          cb(null, user);
+                
+      } catch(err) {
+          cb(err);
+      };
+});
 module.exports = {
    postCreateUser,
    getUsers,

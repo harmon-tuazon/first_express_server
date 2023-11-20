@@ -16,9 +16,9 @@ router.post('/', postCreateUser)
 router.get('/login', getAuthUser)
 
 router.post('/login', passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login"
-  }))
+    successRedirect: "/users/login",
+    failureRedirect: "/users/login"
+}))
 
   
 router.get('/logout', getLogOut)
