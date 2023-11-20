@@ -20,6 +20,13 @@ router.post('/login', passport.authenticate("local", {
     failureRedirect: "/users/login"
 }))
 
+router.get('/google', passport.authenticate("google", {scope: ['profile, email']}))
+
+router.get('/google/redirect', (res, req) => {
+    res.redirect('/')
+})
+
+
   
 router.get('/logout', getLogOut)
 

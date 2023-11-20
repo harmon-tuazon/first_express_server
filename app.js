@@ -6,6 +6,7 @@ const passport = require("passport");
 const blogRouter = require('./routes/blogRoutes.js')
 const userRouter = require('./routes/userRoutes.js')
 
+
 const app = express();
 
 app.set('view engine', 'ejs')
