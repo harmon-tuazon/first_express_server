@@ -3,6 +3,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require("passport");
 const bcrypt = require('bcryptjs');
+const { profileEnd } = require('console');
 require('dotenv').config()
 
 
@@ -52,10 +53,12 @@ passport.use(
               const match = await bcrypt.compare(password, user.password);
       
           if (!user) {
-              return cb(null, false, { message: "Incorrect username" });
+              alert("Wrong username or password")
+              return cb(null, false);
           };
           if (!match) {
-               return cb(null, false, { message: "Incorrect password" });
+               alert("Wrong username or password") 
+               return cb(null, false);
           };
       
           return cb(null, user);
@@ -69,14 +72,31 @@ passport.use(
     new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://localhost:3000/auth/google/redirect"
+        callbackURL: "http://localhost:3000/users/google/redirect"
     },
-    (accessToken, refreshToken, profile, cb) => {
-        User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return cb(err, user);
-        });
-  }
-));
+    async (accessToken, refreshToken, profile, cb) => {
+        try {
+            const user = await User.findOne({username: profile._json.email})
+
+            if (!user) {
+                const newUser = new User({   
+                        firstname: profile._json.given_name,
+                        lastname: profile._json.family_name,
+                        username: profile._json.email,
+                        phonenumber: "",
+                        password: profile._json.sub,
+                        confirmpassword: "",
+                     })
+                     
+                newUser.save()
+            } else {
+                return cb(null, user);
+            }
+        }  catch(err) {
+        return cb(err);
+        }
+    })
+);
 
 passport.serializeUser((user, cb) => {
     cb(null, user._id);

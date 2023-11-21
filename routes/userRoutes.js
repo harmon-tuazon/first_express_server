@@ -16,15 +16,16 @@ router.post('/', postCreateUser)
 router.get('/login', getAuthUser)
 
 router.post('/login', passport.authenticate("local", {
-    successRedirect: "/users/login",
+    successRedirect: "/",
     failureRedirect: "/users/login"
 }))
 
-router.get('/google', passport.authenticate("google", {scope: ['profile, email']}))
+router.get('/google', passport.authenticate("google", {scope: ['profile', 'email']}))
 
-router.get('/google/redirect', (res, req) => {
-    res.redirect('/')
-})
+router.get('/google/redirect', passport.authenticate("google",  {
+    successRedirect: '/',
+    failureRedirect: '/login'
+}))
 
 
   

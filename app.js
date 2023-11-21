@@ -5,13 +5,13 @@ const session = require("express-session");
 const passport = require("passport");
 const blogRouter = require('./routes/blogRoutes.js')
 const userRouter = require('./routes/userRoutes.js')
-
+require('dotenv').config()
 
 const app = express();
 
 app.set('view engine', 'ejs')
 
-const dbURI = "mongodb+srv://testUser1:zTm{2023}@nodetutorial.acvyz82.mongodb.net/nodeTutorial?retryWrites=true&w=majority"
+const dbURI = process.env.MONGO_DB
 
 mongoose.connect(dbURI)
     .then((result) => { app.listen(3000, () => {console.log('listening to server & connected to db')})})
@@ -19,7 +19,7 @@ mongoose.connect(dbURI)
 
     
 
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }))
+app.use(session({ secret: "mysecret", resave: false, saveUninitialized: true }))
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({extended: false}));
