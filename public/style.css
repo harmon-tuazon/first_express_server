@@ -109,7 +109,7 @@ main{
 }
 
 .inputField:focus, .activeField {
-    background-color: var(--offwhite); <
+    background-color: var(--offwhite); 
     border: 2px solid var(--green);
     border-radius: 4px;
     outline: none;
