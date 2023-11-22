@@ -1,6 +1,7 @@
 const User = require('../models/users');
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy =  require('passport-facebook').Strategy;
 const passport = require("passport");
 const bcrypt = require('bcryptjs');
 const { profileEnd } = require('console');
@@ -36,7 +37,7 @@ const getAuthUser = (req, res) => {
    res.render('login', { title: "Log in", user: req.user})
 }
 
-const getLogOut = (req, res) => {
+const getLogOut = (req, res, next) => {
     req.logout((err) => {
         if (err) {
             return next(err);
@@ -44,6 +45,14 @@ const getLogOut = (req, res) => {
         res.redirect("/");
         });
     }
+
+const authCheck = (req, res, next) => {
+    if(!req.user) {
+        res.redirect('/users/login')
+    } else {
+        next()
+    }
+}
 
 //Local Strategy
 passport.use(
@@ -98,6 +107,39 @@ passport.use(
     })
 );
 
+//FB Strategy
+passport.use(
+    new FacebookStrategy({
+        clientID: process.env.FACEBOOK_APP_ID,
+        clientSecret: process.env.FACEBOOK_APP_SECRET,
+        callbackURL: "http://localhost:3000/users/facebook/redirect",
+        profileFields: ['id', 'displayName', 'email']
+    },
+    async (accessToken, refreshToken, profile, cb) => {
+        try {
+            const user = await User.findOne({username: profile.id})
+
+            if (!user) {
+                const newUser = new User({   
+                        firstname: profile.displayName,
+                        lastname: profile.displayName,
+                        username: profile.id,
+                        phonenumber: "",
+                        password: "",
+                        confirmpassword: "",
+                     })
+                     
+                newUser.save()
+            } else {
+                return cb(null, user);
+            }
+        }  catch(err) {
+        return cb(err);
+        }
+    })
+ 
+);
+
 passport.serializeUser((user, cb) => {
     cb(null, user._id);
 });
@@ -116,5 +158,6 @@ module.exports = {
    postCreateUser,
    getUsers,
    getAuthUser,
-   getLogOut
+   getLogOut,
+   authCheck
 }

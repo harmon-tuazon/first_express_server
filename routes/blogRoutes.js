@@ -1,4 +1,5 @@
 const express = require('express');
+const { authCheck } = require('../controllers/userController.js')
 const { blogIndex, 
         getBlogById, 
         postCreateBlog, 
@@ -9,19 +10,19 @@ const { blogIndex,
 
 const router = express.Router();
 
-router.get('/', blogIndex)
+router.get('/', authCheck, blogIndex)
 
-router.post('/', postCreateBlog)
+router.post('/', authCheck, postCreateBlog)
 
-router.get('/create-blog', getCreateBlog)
+router.get('/create-blog', authCheck, getCreateBlog)
 
-router.get('/:id/update-blog',getUpdateBlog)
+router.get('/:id/update-blog', authCheck, getUpdateBlog)
 
-router.post('/:id', postUpdateBlog)
+router.post('/:id', authCheck, postUpdateBlog)
 
-router.get('/:id', getBlogById)
+router.get('/:id', authCheck, getBlogById)
 
-router.delete('/:id', deleteBlog)
+router.delete('/:id', authCheck, deleteBlog)
 
 
 

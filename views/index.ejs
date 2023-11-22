@@ -15,9 +15,8 @@
         <img class="float-leaf-right journal" src="assets/float leaf right.png">
 
         <% if (user) {%>
-            <div class="d-flex flex-column justify-content-evenly align-items-center">
+            <div class="d-flex flex-column justify-content-center align-items-center h-100">
                 <h1>WELCOME BACK <%= user.firstname %></h1>
-                <a href="/users/logout">Log out</a>
             </div>
         <% } else { %>
 

@@ -16,11 +16,11 @@ const userSchema = new Schema({
     },
     phonenumber: {
         type: String,
-        required: false,
+        required: false
     },
     password: {
         type: String,
-        required: true
+        required: false
     },
     confirmpassword: {
         type: String,
