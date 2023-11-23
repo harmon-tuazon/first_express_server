@@ -4,7 +4,6 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy =  require('passport-facebook').Strategy;
 const passport = require("passport");
 const bcrypt = require('bcryptjs');
-const { profileEnd } = require('console');
 require('dotenv').config()
 
 
@@ -27,14 +26,8 @@ const postCreateUser =  (req, res) => {
     })}
 }
 
-const getUsers = (req, res) => {
-    User.find()
-        .then((result) => {res.send(result)})
-        .catch((err) => {console.error(err)})
-}
-
 const getAuthUser = (req, res) => {
-   res.render('login', { title: "Log in", user: req.user})
+   res.render('login', { title: "Log in"})
 }
 
 const getLogOut = (req, res, next) => {
@@ -51,6 +44,39 @@ const authCheck = (req, res, next) => {
         res.redirect('/users/login')
     } else {
         next()
+    }
+}
+
+const getUserProfile = (req, res) => {
+    const id = req.params.id
+
+    User.findById(id)
+    .then((result)=> { res.render('userProfile', { title: "User Profile", user: result })})
+    .catch((err) => {throw new Error(err)})
+   
+}
+
+const postUpdateProfile = (req, res) => {  
+    const id = req.params.id
+
+    if (req.body.password === req.body.confirmpassword) {
+        bcrypt.hash(req.body.password, 10, async(err, hashedPassword) => {
+           if (err) {
+              console.log(err)
+           } else {
+           const replace = {   
+                   ...req.body,
+                   password: hashedPassword,
+                   confirmpassword: hashedPassword
+                                                    }
+         
+           User.findByIdAndUpdate(id, replace, { new: true })
+            .then(result => {res.redirect(`/users/${id}`) })
+            .catch(err => {console.log(err);});
+       }})
+
+    } else {
+        alert("Password and Confirm Password should match")
     }
 }
 
@@ -156,8 +182,9 @@ passport.deserializeUser(async (id, cb) => {
 
 module.exports = {
    postCreateUser,
-   getUsers,
    getAuthUser,
    getLogOut,
-   authCheck
+   authCheck,
+   getUserProfile,
+   postUpdateProfile
 }

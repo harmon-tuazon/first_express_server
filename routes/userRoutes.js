@@ -2,14 +2,14 @@ const express = require('express');
 const passport = require("passport");
 
 
-const { postCreateUser,
-         getUsers, 
+const {  postCreateUser,
          getAuthUser, 
-         getLogOut } = require('../controllers/userController.js')
+         getLogOut, 
+         getUserProfile,
+         postUpdateProfile
+                            } = require('../controllers/userController.js')
 
 const router = express.Router();
-
-router.get('/', getUsers)
 
 router.post('/', postCreateUser)
 
@@ -34,8 +34,12 @@ router.get('/facebook/redirect', passport.authenticate("facebook",  {
     failureRedirect: '/login'
 }))
 
-
-  
 router.get('/logout', getLogOut)
+
+router.get('/:id', getUserProfile)
+
+router.post('/:id', postUpdateProfile)
+
+
 
 module.exports = router;
