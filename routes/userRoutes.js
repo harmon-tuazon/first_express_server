@@ -27,7 +27,7 @@ router.get('/google/redirect', passport.authenticate("google",  {
     failureRedirect: '/login'
 }))
 
-router.get('/facebook', passport.authenticate("facebook"))
+router.get('/facebook', passport.authenticate("facebook", {scope: ['email', 'public_profile']}))
 
 router.get('/facebook/redirect', passport.authenticate("facebook",  {
     successRedirect: '/',

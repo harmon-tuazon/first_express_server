@@ -143,13 +143,13 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, cb) => {
         try {
-            const user = await User.findOne({username: profile.id})
+            const user = await User.findOne({username: profile._json.email})
 
             if (!user) {
                 const newUser = new User({   
-                        firstname: profile.displayName,
-                        lastname: profile.displayName,
-                        username: profile.id,
+                        firstname: profile._json.name.split(/\s(.+)/)[0],
+                        lastname: profile._json.name.split(/\s(.+)/)[1],
+                        username: profile._json.email,
                         phonenumber: "",
                         password: "",
                         confirmpassword: "",
