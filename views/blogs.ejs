@@ -8,6 +8,7 @@
     <div class="container-fluid col-12 d-flex flex-column justify-content-center align-items-center">
  <% if (blogs.length > 0) { %>
       <% blogs.forEach(blog => { %>
+<<<<<<< HEAD
         <div class="card col-4 m-3 p-0 bg-transparent shadow">
           <a class="link-dark link-underline link-underline-opacity-0" href="/blogs/<%= blog._id %>">
               <h3 class="card-header text-bg-success"><%= blog.title %></h3>
@@ -20,6 +21,14 @@
             <button class="btn btn-danger btn-sm" data-doc="<%= blog._id %>">Dislike</button>
           </div>
       </div>
+=======
+        <a class="card col-4 m-3 p-0 bg-transparent shadow link-underline link-underline-opacity-0" href="/blogs/<%= blog._id %>">
+            <h3 class="card-header text-bg-success"><%= blog.title %></h3>
+            <div class="card-body pb-5">
+              <p class="card-text"><%= blog.snippet %></p>
+            </div>
+        </a>
+>>>>>>> 18c6f66d79ecc1ed963f9842fa06e8ca7172e4c0
         <% }) %>
     <% } else { %>  
         <div class="container-fluid col-sm-6 d-flex flex-column justify-content-center align-items-center">
