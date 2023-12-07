@@ -8,7 +8,6 @@
     <div class="container-fluid col-12 d-flex flex-column justify-content-center align-items-center">
  <% if (blogs.length > 0) { %>
       <% blogs.forEach(blog => { %>
-<<<<<<< HEAD
         <div class="card col-4 m-3 p-0 bg-transparent shadow">
           <a class="link-dark link-underline link-underline-opacity-0" href="/blogs/<%= blog._id %>">
               <h3 class="card-header text-bg-success"><%= blog.title %></h3>
@@ -17,18 +16,10 @@
               </div>
           </a>
           <div class="d-flex justify-content-center align-items-start gap-5">
-            <button class="btn btn-success btn-sm" data-doc="<%= blog._id %>">Like</button>
-            <button class="btn btn-danger btn-sm" data-doc="<%= blog._id %>">Dislike</button>
+            <button id="likeBtn" class="btn btn-success btn-sm" data-doc="<%= blog._id %>">Like <%= blog.likes %> </button>
+            <button id="dislikeBtn" class="btn btn-danger btn-sm" data-doc="<%= blog._id %>">Dislike</button>
           </div>
       </div>
-=======
-        <a class="card col-4 m-3 p-0 bg-transparent shadow link-underline link-underline-opacity-0" href="/blogs/<%= blog._id %>">
-            <h3 class="card-header text-bg-success"><%= blog.title %></h3>
-            <div class="card-body pb-5">
-              <p class="card-text"><%= blog.snippet %></p>
-            </div>
-        </a>
->>>>>>> 18c6f66d79ecc1ed963f9842fa06e8ca7172e4c0
         <% }) %>
     <% } else { %>  
         <div class="container-fluid col-sm-6 d-flex flex-column justify-content-center align-items-center">
@@ -40,7 +31,23 @@
     </div>
 </main>
 
+<script>
 
+  const likeBtn = document.querySelector('#likeBtn')
+  const dislikeBtn = document.querySelector('#dislikeBtn')
+  
+  const likeRequest = () => {
+      const endpoint = `/blogs/${likeBtn.dataset.doc}`
+  
+      fetch(endpoint, { method: 'PUT' })
+        .then(response => response.json())
+        .then(data => window.location.href = data.redirect)
+        .catch(err => console.log(err));
+      
+  }
+  likeBtn.addEventListener('click', likeRequest);
+  
+  </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
 </body>

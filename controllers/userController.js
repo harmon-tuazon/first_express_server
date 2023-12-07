@@ -52,11 +52,7 @@ const getUserProfile = (req, res) => {
 
     User.findById(id)
     .then((result)=> { res.render('userProfile', { title: "User Profile", user: result })})
-<<<<<<< HEAD
     .catch((err) => {res.status(404)})
-=======
-    .catch((err) => {throw new Error(err)})
->>>>>>> 18c6f66d79ecc1ed963f9842fa06e8ca7172e4c0
    
 }
 
@@ -92,19 +88,11 @@ passport.use(
               const match = await bcrypt.compare(password, user.password);
       
           if (!user) {
-<<<<<<< HEAD
               window.alert("Wrong username or password")
               return cb(null, false);
           };
           if (!match) {
                window.alert("Wrong username or password") 
-=======
-              alert("Wrong username or password")
-              return cb(null, false);
-          };
-          if (!match) {
-               alert("Wrong username or password") 
->>>>>>> 18c6f66d79ecc1ed963f9842fa06e8ca7172e4c0
                return cb(null, false);
           };
       

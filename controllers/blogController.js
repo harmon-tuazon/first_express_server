@@ -12,13 +12,11 @@ const getCreateBlog = (req, res) => {
 }
 
 const postCreateBlog = (req, res) => {
-<<<<<<< HEAD
     const newBlog = new Blog({
-        ...req.body,
-        user_id: res.locals.user._id})
-=======
-    const newBlog = new Blog(req.body)
->>>>>>> 18c6f66d79ecc1ed963f9842fa06e8ca7172e4c0
+                            ...req.body,
+                            user_id: res.locals.user._id,
+                            likes: 0        
+                        })
 
     newBlog.save()
     .then((result) => {res.redirect('/blogs')})
@@ -29,41 +27,22 @@ const getBlogById = (req, res) => {
     const id = req.params.id
    
     Blog.findById(id)
-<<<<<<< HEAD
     .then((result) => {res.render('blogDetails', { blog: result, title: "Blog Details", user: req.user })}) 
-=======
-    .then((result) => {res.render('blogDetails', { blog: result, title: "Blog Details" })}) 
->>>>>>> 18c6f66d79ecc1ed963f9842fa06e8ca7172e4c0
     .catch((err) => {console.error(err)})
 }
 
 
 const deleteBlog = (req, res) => {
     const id = req.params.id
-<<<<<<< HEAD
 
     Blog.findByIdAndDelete(id)
         .then(result => {res.json({ redirect: '/blogs' })})
         .catch(err => {res.status(404)});
-=======
-   
-    Blog.findByIdAndDelete(id)
-    .then(result => {
-        res.json({ redirect: '/blogs' });
-      })
-      .catch(err => {
-        console.log(err);
-      });
->>>>>>> 18c6f66d79ecc1ed963f9842fa06e8ca7172e4c0
 }
 
 const getUpdateBlog = (req, res) => {
     const id = req.params.id
-<<<<<<< HEAD
 
-=======
-   
->>>>>>> 18c6f66d79ecc1ed963f9842fa06e8ca7172e4c0
     Blog.findById(id)
     .then((result) => {res.render('updateBlog', { blog: result, title: "Update Blog" })}) 
     .catch((err) => {console.error(err)})
@@ -78,7 +57,19 @@ const postUpdateBlog = (req, res) => {
     .catch(err => {console.log(err);});
 }
 
-<<<<<<< HEAD
+const putUpdateLikesBlog = async (req, res) => {
+    const id = req.params.id
+    const blog = await Blog.findById(id)
+    let blogLikes = await Number(blog.likes)
+    let addLikeCount = await blogLikes + 1
+
+    console.log(blog, blogLikes, addLikeCount)
+
+    Blog.findByIdAndUpdate(id, {likes: addLikeCount }, { new: true })
+    .then(result => {res.json({ redirect: "/blogs" })})
+    .catch(err => {console.log(err);});
+}
+
 const authorizationCheck = async (req, res, next) => {
     const id = req.params.id
     const userID = req.user._id.toString()
@@ -101,8 +92,6 @@ const authorizationCheck = async (req, res, next) => {
         }
 }
 
-=======
->>>>>>> 18c6f66d79ecc1ed963f9842fa06e8ca7172e4c0
 module.exports = {
     blogIndex,
     postCreateBlog,
@@ -110,10 +99,7 @@ module.exports = {
     getBlogById,
     deleteBlog,
     getUpdateBlog,
-<<<<<<< HEAD
     postUpdateBlog,
-    authorizationCheck
-=======
-    postUpdateBlog
->>>>>>> 18c6f66d79ecc1ed963f9842fa06e8ca7172e4c0
+    authorizationCheck,
+    putUpdateLikesBlog,
 }
