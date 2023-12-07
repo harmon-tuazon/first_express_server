@@ -15,7 +15,8 @@ const postCreateBlog = (req, res) => {
     const newBlog = new Blog({
                             ...req.body,
                             user_id: res.locals.user._id,
-                            likes: 0        
+                            likes: 0,
+                            dislikes: 0,      
                         })
 
     newBlog.save()
@@ -60,15 +61,19 @@ const postUpdateBlog = (req, res) => {
 const putUpdateLikesBlog = async (req, res) => {
     const id = req.params.id
     const blog = await Blog.findById(id)
-    let blogLikes = await Number(blog.likes)
-    let addLikeCount = await blogLikes + 1
 
-    console.log(blog, blogLikes, addLikeCount)
+    let blogLikes = Number(blog.likes) + 1
+    let blogDislikes = Number(blog.dislikes) + 1
+    let replace = (req.originalUrl === `/blogs/${id}/like`) ? { likes: blogLikes } : { dislikes: blogDislikes }; 
+       
 
-    Blog.findByIdAndUpdate(id, {likes: addLikeCount }, { new: true })
-    .then(result => {res.json({ redirect: "/blogs" })})
-    .catch(err => {console.log(err);});
+    Blog.findByIdAndUpdate(id, replace , { new: true })
+        .then(result => {res.json({ redirect: "/blogs" })})
+        .catch(err => {console.log(err);})
+
 }
+
+
 
 const authorizationCheck = async (req, res, next) => {
     const id = req.params.id

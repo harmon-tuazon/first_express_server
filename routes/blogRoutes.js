@@ -8,7 +8,8 @@ const { blogIndex,
         getUpdateBlog,
         postUpdateBlog,
         authorizationCheck,
-        putUpdateLikesBlog } = require('../controllers/blogController.js')
+        putUpdateLikesBlog,
+        putUpdateDislikesBlog } = require('../controllers/blogController.js')
 
 const router = express.Router();
 
@@ -26,8 +27,9 @@ router.get('/:id', authCheck, getBlogById)
 
 router.delete('/:id', authCheck, authorizationCheck, deleteBlog)
 
-router.put('/:id', authCheck, putUpdateLikesBlog)
+router.put('/:id/like', putUpdateLikesBlog)
 
+router.put('/:id/dislike', putUpdateLikesBlog)
 
 
 module.exports = router;
