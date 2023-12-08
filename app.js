@@ -5,6 +5,7 @@ const session = require("express-session");
 const passport = require("passport");
 const blogRouter = require('./routes/blogRoutes.js')
 const userRouter = require('./routes/userRoutes.js')
+const chatRouter = require('./routes/chatRoutes.js')
 require('dotenv').config()
 
 const app = express();
@@ -46,6 +47,10 @@ app.use('/users', userRouter)
 
 // for blogs
 app.use('/blogs', blogRouter)
+
+// for chats
+app.use('/messageboard', chatRouter)
+
 
 
 // 404 Error Handling
