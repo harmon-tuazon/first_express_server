@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require("path");
 const session = require("express-session");
 const passport = require("passport");
 const blogRouter = require('./routes/blogRoutes.js')
@@ -12,6 +11,7 @@ const app = express();
 
 app.set('view engine', 'ejs')
 
+//MONGO DB
 const dbURI = process.env.MONGO_DB
 
 mongoose.connect(dbURI)
@@ -20,6 +20,7 @@ mongoose.connect(dbURI)
 
     
 
+//MIDDLEWARES
 app.use(session({ secret: "mysecret", resave: false, saveUninitialized: true }))
 app.use(passport.initialize());
 app.use(passport.session());
@@ -32,6 +33,9 @@ app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 
 
+
+
+//ROUTERS
 
 // home & about
 app.get('/', (req, res) => {
@@ -49,9 +53,7 @@ app.use('/users', userRouter)
 app.use('/blogs', blogRouter)
 
 // for chats
-app.use('/messageboard', chatRouter)
-
-
+app.use('/messages', chatRouter)
 
 // 404 Error Handling
 app.use((req, res) => {

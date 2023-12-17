@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const chatSchema = new Schema({
-    author_id: {
+    user_id1: {
+        type: String,
+        required: true,
+    },
+    user_id2: {
         type: String,
         required: true,
     },
@@ -21,8 +25,7 @@ const chatSchema = new Schema({
         default: new Date()
         }
     }
-],
-   
+]
 }, {timestamps: true})
 
     const Chat = mongoose.model('Chat', chatSchema);

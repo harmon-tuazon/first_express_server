@@ -5,17 +5,17 @@
 <%- include('./partials/nav.ejs') %>
 
 <main class="row d-flex container m-0">
-    <div class="col-sm-4">
+    <div class="container-fluid col-sm-4 d-flex flex-column justify-content-center align-items-center">
         <% if (chatboxes.length > 0) { %>
             <% chatboxes.forEach(chatbox => { %>
-              <div class="card col-4 m-3 p-0 bg-transparent shadow">
+              <div class="card col-12 m-3 p-0 bg-transparent shadow">
                 <a class="chatbox link-dark link-underline link-underline-opacity-0" href="/messages/<%= chatbox._id %>">
                     <h3 class="card-header text-bg-success"><%= chatbox.user_id2 %></h3>
                 </a>
               </div>
             <% }) %>
         <% } else { %>  
-              <div class="container-fluid col-sm-4 d-flex flex-column justify-content-center align-items-center">
+              <div>
                 <h1><strong>Add friends to start conversations </strong></h1>
               </div>
         <% }%> 
@@ -23,16 +23,16 @@
 
     <div class="container-fluid col-sm-8 d-flex flex-column justify-content-center align-items-center">
         <% if (chat) { %>
-            <% messages.forEach(messages => { %>
+            <% messages.forEach(message => { %>
                 <div class="card col-4 m-3 p-0 bg-transparent shadow">
-                    <h3 class="card-header text-bg-success"><%= chat.messages.author %></h3>
-                    <div class="card-body pb-5">
-                        <p class="card-text"><%= chat.messages.content %></p>
+                    <h3 class="card-header text-bg-success"><%= chat.message.author %></h3>
+                        <div class="card-body pb-5">
+                            <p class="card-text"><%= chat.message.content %></p>
+                        </div>
                     </div>
-                </div>
         <% }) %>
         <% } else { %>  
-            <div class="container-fluid col-sm-6 d-flex flex-column justify-content-center align-items-center">
+            <div>
                  <h1><strong>No active chatboxes selected... </strong></h1>
             </div>
         <% }%> 
