@@ -13,7 +13,18 @@ const getMessages = (req, res) => {
     .catch((err) => {console.error(err)})
 }
 
+const postCreateRoom = (req, res) => {
+    const newChatRoom = new Chat({
+                            ...req.body,
+                        })
+
+    newChatRoom.save()
+    .then((result) => {res.redirect('/messages')})
+    .catch((err) => {console.error(err)}) 
+}
+
 module.exports = {
     getChatBoard, 
-    getMessages
+    getMessages,
+    postCreateRoom
 }

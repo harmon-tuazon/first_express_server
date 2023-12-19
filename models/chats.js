@@ -2,11 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const chatSchema = new Schema({
-    user_id1: {
-        type: String,
-        required: true,
-    },
-    user_id2: {
+    roomname: {
         type: String,
         required: true,
     },

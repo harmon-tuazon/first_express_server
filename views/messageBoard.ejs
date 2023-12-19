@@ -4,21 +4,42 @@
 
 <%- include('./partials/nav.ejs') %>
 
-<main class="row d-flex container m-0">
-    <div class="container-fluid col-sm-4 d-flex flex-column justify-content-center align-items-center">
+<main class="row d-flex container m-0 vh-100">
+    <div class="scrollable container-fluid col-sm-4 d-flex flex-column justify-content-center align-items-center p-3 position-relative">
         <% if (chatboxes.length > 0) { %>
             <% chatboxes.forEach(chatbox => { %>
-              <div class="card col-12 m-3 p-0 bg-transparent shadow">
+              <div class="card col-12 m-3 p-0 bg-transparent shadow overflow-scroll">
                 <a class="chatbox link-dark link-underline link-underline-opacity-0" href="/messages/<%= chatbox._id %>">
                     <h3 class="card-header text-bg-success"><%= chatbox.user_id2 %></h3>
                 </a>
               </div>
             <% }) %>
         <% } else { %>  
-              <div>
+              <div class="overflow-auto">
                 <h1><strong>Add friends to start conversations </strong></h1>
               </div>
         <% }%> 
+
+        <button type="button" class="btn btn-success btn-sm col-sm- align-self-end position-absolute top-0 end-0 m-4" data-bs-toggle="modal" data-bs-target="#modal" >Create Room</button>
+
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Room Creation</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="/messages" method="post">
+                        <div class="form-group mb-1">
+                          <input type="text" class="form-control" aria-describedby="room name" placeholder="Enter Room Name" name="roomname">
+                        </div>
+                        <button type="submit" class="btn btn-success btn-sm mt-2">Submit</button>
+                      </form>
+                </div>
+              </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="container-fluid col-sm-8 d-flex flex-column justify-content-center align-items-center">

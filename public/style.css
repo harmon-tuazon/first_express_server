@@ -198,6 +198,25 @@ main{
     color: var(--forest);
 }
 
+
+.scrollable {
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 0.75rem;
+}
+
+::-webkit-scrollbar-track { 
+    background:#343a40;
+    border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--offwhite);
+}
+
 /* This is for footer*/
 footer{
 	background-color: var(--offwhite);
