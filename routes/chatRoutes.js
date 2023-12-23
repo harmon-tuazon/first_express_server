@@ -1,16 +1,21 @@
 const express = require('express');
 const {authCheck} = require('../controllers/userController.js')
-const { getChatBoard, 
+const { setChatRoomResVariable, 
+        getChatRooms,
         getMessages,
-        postCreateRoom } = require('../controllers/chatController.js')
+        postCreateRoom, 
+        postSendMessage} = require('../controllers/chatController.js')
 
 const router = express.Router();
 
-router.get('/', authCheck, getChatBoard);
-
-router.get('/:id', authCheck, getMessages);
+router.get('/', authCheck, setChatRoomResVariable, getChatRooms);
 
 router.post('/', authCheck, postCreateRoom)
+
+router.get('/:id', authCheck, setChatRoomResVariable, getMessages);
+
+router.post('/:id', authCheck, setChatRoomResVariable, postSendMessage )
+
 
 
 

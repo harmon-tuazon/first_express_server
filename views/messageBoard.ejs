@@ -5,23 +5,26 @@
 <%- include('./partials/nav.ejs') %>
 
 <main class="row d-flex container m-0 vh-100">
+
+    <!--chat room panel-->
     <div class="scrollable container-fluid col-sm-4 d-flex flex-column justify-content-center align-items-center p-3 position-relative">
         <% if (chatboxes.length > 0) { %>
             <% chatboxes.forEach(chatbox => { %>
-              <div class="card col-12 m-3 p-0 bg-transparent shadow overflow-scroll">
+              <div class="card col-12 m-3 p-1 bg-transparent shadow">
                 <a class="chatbox link-dark link-underline link-underline-opacity-0" href="/messages/<%= chatbox._id %>">
-                    <h3 class="card-header text-bg-success"><%= chatbox.user_id2 %></h3>
+                    <h3 class="card-header text-bg-success"><%= chatbox.roomname %></h3>
                 </a>
               </div>
             <% }) %>
         <% } else { %>  
-              <div class="overflow-auto">
+              <div>
                 <h1><strong>Add friends to start conversations </strong></h1>
               </div>
         <% }%> 
 
         <button type="button" class="btn btn-success btn-sm col-sm- align-self-end position-absolute top-0 end-0 m-4" data-bs-toggle="modal" data-bs-target="#modal" >Create Room</button>
-
+        
+        <!--modal-->
         <div class="modal fade" id="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -42,16 +45,26 @@
 
     </div>
 
-    <div class="container-fluid col-sm-8 d-flex flex-column justify-content-center align-items-center">
+    <!--messages panel-->
+
+    <div class="container-fluid col-sm-8 d-flex flex-column justify-content-center align-items-center position-relative">
         <% if (chat) { %>
-            <% messages.forEach(message => { %>
-                <div class="card col-4 m-3 p-0 bg-transparent shadow">
-                    <h3 class="card-header text-bg-success"><%= chat.message.author %></h3>
-                        <div class="card-body pb-5">
-                            <p class="card-text"><%= chat.message.content %></p>
+            <% chat.messages.forEach(message => { %>
+                <div class="card col-sm-4 m-2 p-0 bg-transparent shadow justify-content-center align-self-end" style="height: 3rem; width: auto;">
+                        <div class="card-body">
+                            <span class="card-text text-bg-success"><%= message.author %>: </span>
+                            <span class="card-text"><%= message.content %></span>
                         </div>
-                    </div>
+                </div>
         <% }) %>
+                <div class="position-absolute bottom-0 w-100 ms-3">
+                    <form action="/messages/<%= chat._id %>" method="post">
+                        <div class="position-relative form-group mb-1">
+                          <textarea row="10" cols="50" wrap="hard" class="form-control shadow-none border border-success py-3" aria-describedby="send message" placeholder="Type message" name="messages"></textarea>
+                          <button type="submit" class="btn btn-success btn-sm position-absolute bottom-0 end-0 m-4">Send</button>
+                        </div>
+                    </form>
+                </div>
         <% } else { %>  
             <div>
                  <h1><strong>No active chatboxes selected... </strong></h1>

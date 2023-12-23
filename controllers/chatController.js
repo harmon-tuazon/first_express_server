@@ -1,21 +1,34 @@
 const Chat = require('../models/chats');
 
-const getChatBoard = (req, res) => {
-    Chat.find()
-    .then((result) => {res.render('messageBoard', { chatboxes: result, title: "Messages", chat: null,})})
-    .then(data => console.log(data))
-    .catch((err) => {console.error(err)})
+const setChatRoomResVariable = async (req, res, next) => {
+    const userID = req.user._id.toString()
+    let chatrooms = await  Chat.find({user_id: userID})
+
+    try{
+        res.locals.chatboxes = chatrooms; 
+        next();
+    } catch(err) {
+        throw new Error(err)
+    }
+ 
+}
+
+const getChatRooms = (req, res) => {
+    res.render('messageBoard', {title: "Messages", chat: null})
 }
 
 const getMessages = (req, res) => {
-    Chat.find()
-    .then((result) => {res.render('messageBoard', { chatboxes: result, title: "Messages", chat: result.messages })})
-    .catch((err) => {console.error(err)})
+    const id = req.params.id
+  
+    Chat.findById(id)
+     .then((result) => {res.render('messageBoard', { title: "Messages", chat: result })})
+     .catch((err) => {console.error(err)})
 }
 
 const postCreateRoom = (req, res) => {
     const newChatRoom = new Chat({
                             ...req.body,
+                            user_id: req.user._id
                         })
 
     newChatRoom.save()
@@ -23,8 +36,32 @@ const postCreateRoom = (req, res) => {
     .catch((err) => {console.error(err)}) 
 }
 
+const postSendMessage = async (req, res) => {
+    const id = req.params.id
+    const replace = {
+                    author: req.user.firstname,
+                    content: req.body.messages,
+                    createdAt: new Date()
+                    }  
+    
+    if (req.body.messages !== "") {
+        const newMessage = await Chat.findByIdAndUpdate(id, {$push: {messages: replace}}, { new: true })
+     
+        try {
+            res.redirect(`/messages/${id}`)
+        }
+        catch(err) {
+            throw new Error(err)
+        }
+    } else {
+        return 
+    }
+}
+
 module.exports = {
-    getChatBoard, 
+    setChatRoomResVariable, 
+    getChatRooms,
     getMessages,
-    postCreateRoom
+    postCreateRoom,
+    postSendMessage
 }
